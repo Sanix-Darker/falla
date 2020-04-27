@@ -37,10 +37,7 @@ class Falla:
 
     def get_tag(self, element, tag):
         if ":" in tag:
-            return element.find(
-                tag.split(":")[0],
-                {"class": tag.split(":")[1]}
-            )
+            return element.find(tag.split(":")[0], {"class": tag.split(":")[1]})
         else:
             return element.find(tag)
 
@@ -122,6 +119,8 @@ class Falla:
             })
             html_content = r.content.decode()
         
+        # print("html_content: ", html_content)
+
         return html_content
 
     def fetch(self, url):
@@ -147,10 +146,10 @@ class Falla:
             results.append(element)
 
         if len(results) == 0 and self.try_it < self.max_retry:
-            self.fetch(url)
             self.try_it += 1
             time.sleep(0.5)
             print("[+] try: ", self.try_it)
+            self.fetch(url)
 
         if self.mode == "selenium":
             self.driver.quit()
