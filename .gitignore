@@ -4,3 +4,4 @@ config.txt
 .vscode
 .history
 *.json
+*.log

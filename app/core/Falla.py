@@ -26,14 +26,25 @@ class Falla:
 
         return to_return
 
+    def get_tag(self, element, tag):
+        if ":" in tag:
+            return element.find(
+                tag.split(":")[0],
+                {"class": tag.split(":")[1]}
+            )
+        else:
+            return element.find(tag)
+
     def parse_entry_point(self, element, the_filter):
     
-        to_return = element.find(the_filter["tag"])
+        to_return = self.get_tag(element, the_filter["tag"])
+
         if "type" in the_filter:
             to_return = self.get_element_from_type(to_return, the_filter)
         else:
             if bool(the_filter["child"]): # There are some child
-                to_return = to_return.find(the_filter["child"]["tag"])
+                to_return = self.get_tag(to_return, the_filter["child"]["tag"])
+
                 to_return = self.get_element_from_type(to_return, the_filter["child"])
             else:
                 print("[x] Malformed filter !")
@@ -66,6 +77,7 @@ class Falla:
         fetchs = self.get_each_elements(soup)
 
         results = []
+        # print("self.parse_entry_point(elt, self.cite): ", self.parse_entry_point(fetchs[0], self.cite))
         for elt in fetchs:
             element = {
                 "href": self.parse_entry_point(elt, self.href), # elt.find("a")["href"]
