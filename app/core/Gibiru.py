@@ -1,4 +1,4 @@
-# Falla-Google
+# Falla-Gibiru
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
@@ -9,8 +9,10 @@ from app.core.Falla import Falla
 
 class Gibiru(Falla):
     def __init__(self):
-
+        self.source = "Gibiru"
         self.mode = "splash_scrap"
+        self.try_it = 0
+        self.max_retry = 3
         self.results_box = "//div[@class='gsc-resultsRoot']"
         self.each_element = {
             "tag": "div",
@@ -18,8 +20,8 @@ class Gibiru(Falla):
         }
         self.href = {
             "tag": "a:gs-title",
-            "type": "attibute",
-            "key": "href",
+            "type": "attribute",
+            "key": "data-ctorig",
             "child": {}
         }
         self.title = {

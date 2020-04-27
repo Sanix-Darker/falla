@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import json
+import time
 from app.settings import *
 
 class Falla:
@@ -16,13 +17,19 @@ class Falla:
         self.href = href
         self.title = title
         self.cite = cite
+        self.try_it = 0
+        self.max_retry = 4
+        self.source = "Falla"
         self.mode = "requests"
 
     def get_element_from_type(self, to_return, the_filter=None):
         if the_filter["type"] == "text":
             to_return = to_return.getText()
-        elif  the_filter["type"] == "attibute":
-            to_return = to_return[the_filter["key"]]
+        elif  the_filter["type"] == "attribute":
+            try:
+                to_return = to_return[the_filter["key"]]
+            except Exception as es:
+                to_return = ""
         else:
             print("[x] Error, specify a valid type !")
 
@@ -126,14 +133,24 @@ class Falla:
         fetchs = self.get_each_elements(soup)
 
         results = []
+        # print("fetchs: ", fetchs)
         # print("self.parse_entry_point(elt, self.href): ", self.parse_entry_point(fetchs[0], self.href))
+        # print("self.parse_entry_point(elt, self.title): ", self.parse_entry_point(fetchs[0], self.title))
+        # print("self.parse_entry_point(elt, self.cite): ", self.parse_entry_point(fetchs[0], self.cite))
         for elt in fetchs:
             element = {
+                "source": self.source,
                 "href": self.parse_entry_point(elt, self.href), # elt.find("a")["href"]
                 "title": self.parse_entry_point(elt, self.title), # str(elt.find("a").find("h3").getText())
                 "cite": self.parse_entry_point(elt, self.cite) # str(elt.find("a").find("cite").getText())
             }
             results.append(element)
+
+        if len(results) == 0 and self.try_it < self.max_retry:
+            self.fetch(url)
+            self.try_it += 1
+            time.sleep(0.5)
+            print("[+] try: ", self.try_it)
 
         if self.mode == "selenium":
             self.driver.quit()

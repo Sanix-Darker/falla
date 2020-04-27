@@ -10,8 +10,10 @@ from app.core.Falla import Falla
 class Bing(Falla):
     def __init__(self):
         # driver parameters
+        self.source = "Bing"
         self.mode = "splash_scrap"
-
+        self.try_it = 0
+        self.max_retry = 3
         self.results_box = "//ol[@id='b_results']"
         self.each_element = {
             "tag": "li",
@@ -19,7 +21,7 @@ class Bing(Falla):
         }
         self.href = {
             "tag": "a",
-            "type": "attibute",
+            "type": "attribute",
             "key": "href",
             "child": {}
         }

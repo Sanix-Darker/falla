@@ -14,6 +14,9 @@ class Google(Falla):
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
 
+        self.try_it = 0
+        self.max_retry = 3
+        self.source = "Google"
         self.mode = "selenium"
         self.results_box = "//div[@id='search']"
         self.each_element = {
@@ -22,7 +25,7 @@ class Google(Falla):
         }
         self.href = {
             "tag": "a",
-            "type": "attibute",
+            "type": "attribute",
             "key": "href",
             "child": {}
         }

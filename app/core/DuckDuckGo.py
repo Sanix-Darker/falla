@@ -14,8 +14,10 @@ class DuckDuckGo(Falla):
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
 
+        self.source = "DuckDuckGo"
         self.mode = "selenium"
-
+        self.try_it = 0
+        self.max_retry = 3
         self.results_box = "//div[@id='links']"
         self.each_element = {
             "tag": "div",
@@ -23,7 +25,7 @@ class DuckDuckGo(Falla):
         }
         self.href = {
             "tag": "a:result__a",
-            "type": "attibute",
+            "type": "attribute",
             "key": "href",
             "child": {}
         }
