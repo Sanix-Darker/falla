@@ -1,0 +1,6 @@
+config.txt
+*__pycache__
+.idea
+.vscode
+.history
+*.json
