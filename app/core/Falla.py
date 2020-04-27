@@ -15,6 +15,7 @@ class Falla:
         self.href = href
         self.title = title
         self.cite = cite
+        self.use_selenium = True
 
     def get_element_from_type(self, to_return, the_filter=None):
         if the_filter["type"] == "text":
@@ -64,14 +65,28 @@ class Falla:
 
         return fetchs
 
+    def get_html_content(self, url):
+        
+        if self.use_selenium is not None:
+            self.driver.get(url)
+            self.driver.implicitly_wait(10)  # in seconds
+
+            element = self.driver.find_element_by_xpath(self.results_box)
+            html_content = element.get_attribute('outerHTML')
+        else:
+            r = requests.get(url, headers={"Upgrade-Insecure-Requests": "1", 
+                                            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36",
+                                            "Sec-Fetch-Dest": "document",
+                                            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+            })
+            html_content = r.content.decode()
+            
+        return html_content
+
     def fetch(self, url):
 
-        self.driver.get(url)
-        self.driver.implicitly_wait(10)  # in seconds
-
-        element = self.driver.find_element_by_xpath(self.results_box)
-        html_content = element.get_attribute('outerHTML')
-
+        html_content = self.get_html_content(url)
+        
         soup = BeautifulSoup(html_content, 'html.parser')
         
         fetchs = self.get_each_elements(soup)
