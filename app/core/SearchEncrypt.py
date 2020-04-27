@@ -6,7 +6,6 @@ from app.core.Falla import Falla
 
 class SearchEncrypt(Falla):
     def __init__(self):
-
         self.try_it = 0
         self.max_retry = 3
         self.source = "SearchEncrypt"

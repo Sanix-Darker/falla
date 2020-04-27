@@ -134,14 +134,15 @@ class Falla:
         # print("self.parse_entry_point(elt, self.title): ", self.parse_entry_point(fetchs[0], self.title))
         # print("self.parse_entry_point(elt, self.cite): ", self.parse_entry_point(fetchs[0], self.cite))
         for elt in fetchs:
-            element = {
-                "source": self.source,
-                "href": self.parse_entry_point(elt, self.href), # elt.find("a")["href"]
-                "title": self.parse_entry_point(elt, self.title), # str(elt.find("a").find("h3").getText())
-                "cite": self.parse_entry_point(elt, self.cite) # str(elt.find("a").find("cite").getText())
-            }
-            results.append(element)
-
+            try:
+                element = {
+                    "source": self.source,
+                    "href": self.parse_entry_point(elt, self.href), # elt.find("a")["href"]
+                    "title": self.parse_entry_point(elt, self.title), # str(elt.find("a").find("h3").getText())
+                    "cite": self.parse_entry_point(elt, self.cite) # str(elt.find("a").find("cite").getText())
+                }
+                results.append(element)
+            except Exception as es: pass
         if len(results) == 0 and self.try_it < self.max_retry:
             self.try_it += 1
             time.sleep(0.5)
