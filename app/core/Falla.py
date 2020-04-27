@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import json
+from app.settings import *
 
 class Falla:
     def __init__(self, results_box, each_element, href, title, cite):
@@ -15,7 +16,7 @@ class Falla:
         self.href = href
         self.title = title
         self.cite = cite
-        self.use_selenium = True
+        self.mode = "requests"
 
     def get_element_from_type(self, to_return, the_filter=None):
         if the_filter["type"] == "text":
@@ -65,22 +66,55 @@ class Falla:
 
         return fetchs
 
+    def scrapy_splash_request(self, to_fetch_url):
+
+        json_data = {
+            "response_body":False,
+            "lua_source":"function main(splash, args)\r\n  assert(splash:go(args.url))\r\n  assert(splash:wait(0.5))\r\n  return {\r\n    html = splash:html(),\r\n    png = splash:png(),\r\n    har = splash:har(),\r\n  }\r\nend",
+            "url":to_fetch_url,
+            "html5_media":False,
+            "save_args":[],
+            "viewport":"1024x768",
+            "http_method":"GET",
+            "resource_timeout":0,
+            "render_all":False,
+            "png":1,
+            "har":1,
+            "timeout":90,
+            "request_body":False,
+            "load_args":{},
+            "html":1,
+            "images":1,
+            "wait":0.7
+        }
+
+        url = SPLASH_SCRAP_URL + "/execute"
+
+        r = requests.post(url, json=json_data)
+
+        html_string = json.loads(r.content.decode())["html"]
+
+        return html_string
+
     def get_html_content(self, url):
         
-        if self.use_selenium is not None:
+        if self.mode == "selenium":
             self.driver.get(url)
             self.driver.implicitly_wait(10)  # in seconds
 
             element = self.driver.find_element_by_xpath(self.results_box)
             html_content = element.get_attribute('outerHTML')
-        else:
+        elif self.mode == "splash_scrap":
+            html_content = self.scrapy_splash_request(url)
+
+        elif self.mode == "requests":
             r = requests.get(url, headers={"Upgrade-Insecure-Requests": "1", 
                                             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36",
                                             "Sec-Fetch-Dest": "document",
                                             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
             })
             html_content = r.content.decode()
-            
+        
         return html_content
 
     def fetch(self, url):
@@ -92,7 +126,7 @@ class Falla:
         fetchs = self.get_each_elements(soup)
 
         results = []
-        # print("self.parse_entry_point(elt, self.cite): ", self.parse_entry_point(fetchs[0], self.cite))
+        # print("self.parse_entry_point(elt, self.href): ", self.parse_entry_point(fetchs[0], self.href))
         for elt in fetchs:
             element = {
                 "href": self.parse_entry_point(elt, self.href), # elt.find("a")["href"]
@@ -101,6 +135,7 @@ class Falla:
             }
             results.append(element)
 
-        self.driver.quit()
+        if self.mode == "selenium":
+            self.driver.quit()
 
         return json.dumps(results, ensure_ascii=False)

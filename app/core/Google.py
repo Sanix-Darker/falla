@@ -14,7 +14,7 @@ class Google(Falla):
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
 
-        self.use_selenium = True
+        self.mode = "selenium"
         self.results_box = "//div[@id='search']"
         self.each_element = {
             "tag": "div",

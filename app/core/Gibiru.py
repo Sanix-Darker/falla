@@ -1,4 +1,4 @@
-# Falla-DuckDuckGo
+# Falla-Google
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
@@ -7,41 +7,36 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
-class DuckDuckGo(Falla):
+class Gibiru(Falla):
     def __init__(self):
-        # driver parameters
-        self.option = Options()
-        self.option.headless = True
-        self.driver = webdriver.Firefox(options=self.option)
 
-        self.mode = "selenium"
-
-        self.results_box = "//div[@id='links']"
+        self.mode = "splash_scrap"
+        self.results_box = "//div[@class='gsc-resultsRoot']"
         self.each_element = {
             "tag": "div",
-            "attr": {"class": "result__body"}
+            "attr": {"class": "gs-webResult"}
         }
         self.href = {
-            "tag": "a:result__a",
+            "tag": "a:gs-title",
             "type": "attibute",
             "key": "href",
             "child": {}
         }
         self.title = {
-            "tag": "a:result__a",
+            "tag": "a:gs-title",
             "type": "text",
             "child": {}
         }
-        self.cite = { 
-            "tag": "div:result__snippet",
+        self.cite = {
+            "tag": "div:gs-snippet",
             "type": "text",
             "child": {}
         }
 
     def search(self, search_text):
         
-        url = "https://duckduckgo.com/?q="+search_text.replace(" ", "+")
+        url = "https://gibiru.com/results.html?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-d = DuckDuckGo()
-print(d.search("un avion"))
+gi = Gibiru()
+print(gi.search("un avion"))

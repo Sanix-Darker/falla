@@ -10,7 +10,7 @@ from app.core.Falla import Falla
 class Bing(Falla):
     def __init__(self):
         # driver parameters
-        self.use_selenium = None
+        self.mode = "splash_scrap"
 
         self.results_box = "//ol[@id='b_results']"
         self.each_element = {
@@ -29,9 +29,11 @@ class Bing(Falla):
             "child": {}
         }
         self.cite = { 
-            "tag": "div:b_snippet",
-            "type": "text",
-            "child": {}
+            "tag": "div:b_caption",
+            "child": {
+                "tag": "p",
+                "type": "text"
+            }
         }
 
     def search(self, search_text):
