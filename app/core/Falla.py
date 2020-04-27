@@ -92,10 +92,7 @@ class Falla:
             "wait":0.7
         }
 
-        url = SPLASH_SCRAP_URL + "/execute"
-
-        r = requests.post(url, json=json_data)
-
+        r = requests.post(SPLASH_SCRAP_URL + "/execute", json=json_data)
         html_string = json.loads(r.content.decode())["html"]
 
         return html_string
