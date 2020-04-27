@@ -14,6 +14,7 @@ class DuckDuckGo(Falla):
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
 
+        self.use_selenium = True
         self.results_box = "//div[@id='links']"
         self.each_element = {
             "tag": "div",

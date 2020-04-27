@@ -1,4 +1,4 @@
-# Falla-DuckDuckGo
+# Falla-Bing
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
