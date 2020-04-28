@@ -2,13 +2,11 @@
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
-from selenium.webdriver.firefox.options import Options
-
 from app.core.Falla import Falla
+
 
 class StartPage(Falla):
     def __init__(self):
-        # driver parameters
         self.try_it = 0
         self.max_retry = 3
         self.source = "StartPage"
@@ -38,8 +36,7 @@ class StartPage(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.startpage.com/sp/search?q="+search_text.replace(" ", "+")
+        url = "https://www.startpage.com/sp/search?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # sp = StartPage()

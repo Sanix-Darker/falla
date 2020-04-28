@@ -7,9 +7,9 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
+
 class Qwant(Falla):
     def __init__(self):
-        # driver parameters
         self.option = Options()
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
@@ -43,8 +43,7 @@ class Qwant(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.qwant.com/?q="+search_text.replace(" ", "+")
+        url = "https://www.qwant.com/?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # qw = Qwant()

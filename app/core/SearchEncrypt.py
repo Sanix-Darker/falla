@@ -4,6 +4,7 @@
 
 from app.core.Falla import Falla
 
+
 class SearchEncrypt(Falla):
     def __init__(self):
         self.try_it = 0
@@ -35,8 +36,7 @@ class SearchEncrypt(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.searchencrypt.com/search/?q="+search_text.replace(" ", "+")
+        url = "https://www.searchencrypt.com/search/?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # se = SearchEncrypt()

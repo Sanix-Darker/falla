@@ -2,10 +2,8 @@
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-
 from app.core.Falla import Falla
+
 
 class Gibiru(Falla):
     def __init__(self):
@@ -36,8 +34,7 @@ class Gibiru(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://gibiru.com/results.html?q="+search_text.replace(" ", "+")
+        url = "https://gibiru.com/results.html?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # gi = Gibiru()

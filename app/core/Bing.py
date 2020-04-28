@@ -7,9 +7,9 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
+
 class Bing(Falla):
     def __init__(self):
-        # driver parameters
         self.source = "Bing"
         self.mode = "splash_scrap"
         self.try_it = 0
@@ -30,7 +30,7 @@ class Bing(Falla):
             "type": "text",
             "child": {}
         }
-        self.cite = { 
+        self.cite = {
             "tag": "div:b_caption",
             "child": {
                 "tag": "p",
@@ -39,8 +39,7 @@ class Bing(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.bing.com/search?q="+search_text.replace(" ", "+")
+        url = "https://www.bing.com/search?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # b = Bing()

@@ -7,9 +7,9 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
+
 class Yandex(Falla):
     def __init__(self):
-        # driver parameters
         self.option = Options()
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
@@ -42,8 +42,7 @@ class Yandex(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://yandex.com/search/?text="+search_text.replace(" ", "+")
+        url = "https://yandex.com/search/?text=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # y = Yandex()

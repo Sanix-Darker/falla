@@ -4,9 +4,9 @@
 
 from app.core.Falla import Falla
 
+
 class Ask(Falla):
     def __init__(self):
-
         self.try_it = 0
         self.max_retry = 3
         self.source = "Ask"
@@ -32,8 +32,7 @@ class Ask(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.ask.com/web?q="+search_text.replace(" ", "+")
+        url = "https://www.ask.com/web?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # ak = Ask()

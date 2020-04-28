@@ -4,9 +4,9 @@
 
 from app.core.Falla import Falla
 
+
 class Mojeek(Falla):
     def __init__(self):
-
         self.try_it = 0
         self.max_retry = 3
         self.source = "Mojeek"
@@ -31,8 +31,7 @@ class Mojeek(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.mojeek.com/search?q="+search_text.replace(" ", "+")
+        url = "https://www.mojeek.com/search?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # mk = Mojeek()

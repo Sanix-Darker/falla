@@ -7,9 +7,9 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
+
 class Yahoo(Falla):
     def __init__(self):
-        # driver parameters
         self.option = Options()
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
@@ -41,8 +41,7 @@ class Yahoo(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://search.yahoo.com/search?p="+search_text.replace(" ", "+")
+        url = "https://search.yahoo.com/search?p=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # y = Yahoo()

@@ -7,9 +7,9 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
+
 class DuckDuckGo(Falla):
     def __init__(self):
-        # driver parameters
         self.option = Options()
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
@@ -34,15 +34,14 @@ class DuckDuckGo(Falla):
             "type": "text",
             "child": {}
         }
-        self.cite = { 
+        self.cite = {
             "tag": "div:result__snippet",
             "type": "text",
             "child": {}
         }
 
     def search(self, search_text):
-        
-        url = "https://duckduckgo.com/?q="+search_text.replace(" ", "+")
+        url = "https://duckduckgo.com/?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # d = DuckDuckGo()

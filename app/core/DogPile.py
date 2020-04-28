@@ -4,9 +4,9 @@
 
 from app.core.Falla import Falla
 
+
 class DogPile(Falla):
     def __init__(self):
-
         self.try_it = 0
         self.max_retry = 3
         self.source = "DogPile"
@@ -32,8 +32,7 @@ class DogPile(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.dogpile.com/serp?q="+search_text.replace(" ", "+")
+        url = "https://www.dogpile.com/serp?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # dp = DogPile()

@@ -4,14 +4,14 @@
 
 import requests
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 import json
 import time
 from app.settings import *
 
+
 class Falla:
     def __init__(self, results_box, each_element, href, title, cite):
+        self.driver = None
         self.results_box = results_box
         self.each_element = each_element
         self.href = href
@@ -22,10 +22,14 @@ class Falla:
         self.source = "Falla"
         self.mode = "requests"
 
+        self.option = None
+        self.option.headless = None
+        self.driver = None
+
     def get_element_from_type(self, to_return, the_filter=None):
         if the_filter["type"] == "text":
             to_return = to_return.getText()
-        elif  the_filter["type"] == "attribute":
+        elif the_filter["type"] == "attribute":
             try:
                 to_return = to_return[the_filter["key"]]
             except Exception as es:
@@ -42,13 +46,13 @@ class Falla:
             return element.find(tag)
 
     def parse_entry_point(self, element, the_filter):
-    
+
         to_return = self.get_tag(element, the_filter["tag"])
 
         if "type" in the_filter:
             to_return = self.get_element_from_type(to_return, the_filter)
         else:
-            if bool(the_filter["child"]): # There are some child
+            if bool(the_filter["child"]):  # There are some child
                 to_return = self.get_tag(to_return, the_filter["child"]["tag"])
 
                 to_return = self.get_element_from_type(to_return, the_filter["child"])
@@ -73,23 +77,25 @@ class Falla:
     def scrapy_splash_request(self, to_fetch_url):
 
         json_data = {
-            "response_body":False,
-            "lua_source":"function main(splash, args)\r\n  assert(splash:go(args.url))\r\n  assert(splash:wait(0.5))\r\n  return {\r\n    html = splash:html(),\r\n    png = splash:png(),\r\n    har = splash:har(),\r\n  }\r\nend",
-            "url":to_fetch_url,
-            "html5_media":False,
-            "save_args":[],
-            "viewport":"1024x768",
-            "http_method":"GET",
-            "resource_timeout":0,
-            "render_all":False,
-            "png":1,
-            "har":1,
-            "timeout":90,
-            "request_body":False,
-            "load_args":{},
-            "html":1,
-            "images":1,
-            "wait":0.7
+            "response_body": False,
+            "lua_source": "function main(splash, args)\r\n  assert(splash:go(args.url))\r\n  assert(splash:wait("
+                          "0.5))\r\n  return {\r\n    html = splash:html(),\r\n    png = splash:png(),\r\n    har = "
+                          "splash:har(),\r\n  }\r\nend",
+            "url": to_fetch_url,
+            "html5_media": False,
+            "save_args": [],
+            "viewport": "1024x768",
+            "http_method": "GET",
+            "resource_timeout": 0,
+            "render_all": False,
+            "png": 1,
+            "har": 1,
+            "timeout": 90,
+            "request_body": False,
+            "load_args": {},
+            "html": 1,
+            "images": 1,
+            "wait": 0.7
         }
 
         r = requests.post(SPLASH_SCRAP_URL + "/execute", json=json_data)
@@ -98,7 +104,7 @@ class Falla:
         return html_string
 
     def get_html_content(self, url):
-        
+        html_content = ""
         if self.mode == "selenium":
             self.driver.get(url)
             self.driver.implicitly_wait(10)  # in seconds
@@ -109,14 +115,15 @@ class Falla:
             html_content = self.scrapy_splash_request(url)
 
         elif self.mode == "requests":
-            r = requests.get(url, headers={"Upgrade-Insecure-Requests": "1", 
-                                            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.100 Safari/537.36",
-                                            "Sec-Fetch-Dest": "document",
-                                            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
-            })
+            r = requests.get(url, headers={"Upgrade-Insecure-Requests": "1",
+                                           "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, "
+                                                         "like Gecko) Chrome/80.0.3987.100 Safari/537.36",
+                                           "Sec-Fetch-Dest": "document",
+                                           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                                                     "image/webp,image/apng,*/*;q=0.8,"
+                                                     "application/signed-exchange;v=b3;q=0.9 "
+                                           })
             html_content = r.content.decode()
-        
-        # print("html_content: ", html_content)
 
         return html_content
 
@@ -124,9 +131,9 @@ class Falla:
         print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") + "' on '" + self.source + "' :\n")
 
         html_content = self.get_html_content(url)
-        
+
         soup = BeautifulSoup(html_content, 'html.parser')
-        
+
         fetchs = self.get_each_elements(soup)
 
         results = []
@@ -138,12 +145,13 @@ class Falla:
             try:
                 element = {
                     "source": self.source,
-                    "href": self.parse_entry_point(elt, self.href), # elt.find("a")["href"]
-                    "title": self.parse_entry_point(elt, self.title), # str(elt.find("a").find("h3").getText())
-                    "cite": self.parse_entry_point(elt, self.cite) # str(elt.find("a").find("cite").getText())
+                    "href": self.parse_entry_point(elt, self.href),  # elt.find("a")["href"]
+                    "title": self.parse_entry_point(elt, self.title),  # str(elt.find("a").find("h3").getText())
+                    "cite": self.parse_entry_point(elt, self.cite)  # str(elt.find("a").find("cite").getText())
                 }
                 results.append(element)
-            except Exception as es: pass
+            except Exception as es:
+                pass
         if len(results) == 0 and self.try_it < self.max_retry:
             self.try_it += 1
             time.sleep(0.5)

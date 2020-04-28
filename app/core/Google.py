@@ -7,9 +7,9 @@ from selenium.webdriver.firefox.options import Options
 
 from app.core.Falla import Falla
 
+
 class Google(Falla):
     def __init__(self):
-        # driver parameters
         self.option = Options()
         self.option.headless = True
         self.driver = webdriver.Firefox(options=self.option)
@@ -45,8 +45,7 @@ class Google(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://www.google.com/search?q="+search_text.replace(" ", "+")
+        url = "https://www.google.com/search?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # g = Google()

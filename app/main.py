@@ -13,16 +13,17 @@ __author__ = "Sanix-darker"
 import argparse
 from app.utils import *
 
-
 if __name__ == "__main__":
     # Initialize the arguments
+    # python3 -m app.main # Search-Engine list
+    # python3 -m app.main -e aol -q "sanix darker"
     prs = argparse.ArgumentParser()
     prs.add_argument('-e', '--engine', help='The search engine', type=str, default="google")
     prs.add_argument('-q', '--query', help='The query text', type=str)
     prs = prs.parse_args()
 
     print("[+] Falla [the search-engine-scraper]")
-    if prs.engine != None and prs.query != None :
+    if prs.engine != None and prs.query != None:
         get_results(engine=prs.engine.lower(), query=prs.query.lower())
     else:
         list_engines()

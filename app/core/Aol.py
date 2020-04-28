@@ -4,9 +4,9 @@
 
 from app.core.Falla import Falla
 
+
 class Aol(Falla):
     def __init__(self):
-
         self.try_it = 0
         self.max_retry = 3
         self.source = "Aol"
@@ -34,8 +34,7 @@ class Aol(Falla):
         }
 
     def search(self, search_text):
-        
-        url = "https://search.aol.com/aol/search?q="+search_text.replace(" ", "+")
+        url = "https://search.aol.com/aol/search?q=" + search_text.replace(" ", "+")
         return self.fetch(url)
 
 # a = Aol()
