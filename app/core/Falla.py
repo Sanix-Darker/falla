@@ -2,10 +2,13 @@
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
+import json
+import sys
+import time
+import traceback
 import requests
 from bs4 import BeautifulSoup
-import json
-import time
+
 from app.settings import *
 
 
@@ -26,13 +29,29 @@ class Falla:
         self.option.headless = None
         self.driver = None
 
+    def get_trace(self):
+        """
+        This method will just print the Traceback after an error occur
+        """
+        print("Exception in code:")
+        print("-" * 60)
+        traceback.print_exc(file=sys.stdout)
+        print("-" * 60)
+
     def get_element_from_type(self, to_return, the_filter=None):
+        """
+        A parse-method to extract from parse_entry_point an element as attribute or text
+
+        to_return: The BeautifulSoup object
+        the_filter: The Json-Filter
+        """
         if the_filter["type"] == "text":
             to_return = to_return.getText()
         elif the_filter["type"] == "attribute":
             try:
                 to_return = to_return[the_filter["key"]]
-            except Exception as es:
+            except Exception:
+                self.get_trace()
                 to_return = ""
         else:
             print("[x] Error, specify a valid type !")
@@ -40,13 +59,24 @@ class Falla:
         return to_return
 
     def get_tag(self, element, tag):
+        """
+        This method will extract the tag having a attriute or not
+
+        element: The Beautifull-Soup object
+        tag: The Json tag (can be a class or other)
+        """
         if ":" in tag:
             return element.find(tag.split(":")[0], {"class": tag.split(":")[1]})
         else:
             return element.find(tag)
 
     def parse_entry_point(self, element, the_filter):
+        """
+        This method will extract the href, the title and the cite in result
 
+        element: The Beautifull-Soup Object
+        the_filter: The JSON object for the Filter
+        """
         to_return = self.get_tag(element, the_filter["tag"])
 
         if "type" in the_filter:
@@ -62,7 +92,11 @@ class Falla:
         return ' '.join(str(to_return).split())
 
     def get_each_elements(self, soup):
+        """
+        Get all elements list from Beautifull-Soup object
 
+        soup: The Beautiful-Soup object
+        """
         fetchs = []
         if "attr" in self.each_element:
             if self.each_element["attr"] is not None:
@@ -75,7 +109,11 @@ class Falla:
         return fetchs
 
     def scrapy_splash_request(self, to_fetch_url):
+        """
+        This method is responsible for scrapping a html_content from a url using splash-scrap
 
+        to_fetch_url: The url of the website
+        """
         json_data = {
             "response_body": False,
             "lua_source": "function main(splash, args)\r\n  assert(splash:go(args.url))\r\n  assert(splash:wait("
@@ -104,6 +142,9 @@ class Falla:
         return html_string
 
     def get_html_content(self, url):
+        """
+        This method will check the mode of fetching and proceed
+        """
         html_content = ""
         if self.mode == "selenium":
             self.driver.get(url)
@@ -128,19 +169,18 @@ class Falla:
         return html_content
 
     def fetch(self, url):
+        """
+        The main method for fetching results from url
+        """
         print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") + "' on '" + self.source + "' :\n")
 
         html_content = self.get_html_content(url)
-
         soup = BeautifulSoup(html_content, 'html.parser')
-
         fetchs = self.get_each_elements(soup)
 
         results = []
         # print("fetchs: ", fetchs)
         # print("self.parse_entry_point(elt, self.href): ", self.parse_entry_point(fetchs[0], self.href))
-        # print("self.parse_entry_point(elt, self.title): ", self.parse_entry_point(fetchs[0], self.title))
-        # print("self.parse_entry_point(elt, self.cite): ", self.parse_entry_point(fetchs[0], self.cite))
         for elt in fetchs:
             try:
                 element = {
@@ -150,8 +190,9 @@ class Falla:
                     "cite": self.parse_entry_point(elt, self.cite)  # str(elt.find("a").find("cite").getText())
                 }
                 results.append(element)
-            except Exception as es:
-                pass
+            except Exception:
+                self.get_trace()
+
         if len(results) == 0 and self.try_it < self.max_retry:
             self.try_it += 1
             time.sleep(0.5)
