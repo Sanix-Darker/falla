@@ -56,6 +56,6 @@ def get_results(engine, query):
 
     for elt in results:
         print("|> " + bcolors.OKBLUE + elt["title"] + bcolors.ENDC)
-        print("|  " + bcolors.WARNING +  elt["href"] + bcolors.ENDC)
-        print("|  " + elt["cite"])
+        print("|- " + bcolors.WARNING +  elt["href"] + bcolors.ENDC)
+        print("|| " + elt["cite"])
         print("") 

@@ -46,54 +46,34 @@ optional arguments:
 
 - To list all search-engine:
 ```shell-script
-python3 -m app.main
+$ python3 -m app.main
+# output
+[+] Falla [the search-engine-scraper]
+[+] Listing search-Engines
+[+] > google
+[+] > bing
+[+] > aol
+[+] > dogpile
+[+] > falla
+[+] > ask
+[+] > qwant
+[+] > duckduckgo
+[+] > mojeek
+[+] > gibiru
+[+] > yandex
+[+] > yahoo
+[+] > searchencrypt
+[+] > iem
+[+] > kallasearch
+[+] > wosx
 ```
 
 - To search something:
 ```shell-script
 $ python3 -m app.main -e google -q "sanix darker"
 # output
-[+] Falla [the search-engine-scraper]
-[+] Searching results for 'sanix darker' on 'Google' :
-
-|> Sanix-Darker (S@n1X) · GitHub
-|  https://github.com/Sanix-Darker
-|  github.com › Sanix-Darker
-
-|> Sanix Darker (@sanix_code) • Photos et vidéos Instagram
-|  https://www.instagram.com/sanix_code/?hl=fr
-|  www.instagram.com › sanix_code
-
-|> Antiddos System
-|  https://awesomeopensource.com/project/Sanix-Darker/AntiDDOS-system
-|  awesomeopensource.com › project
-
-|> Sanix Darker - YouTube
-|  https://www.youtube.com/channel/UClEW-2tqT3Z9puUDbTSouXA
-|  www.youtube.com › channel
-
-|> Sanix Darker - Speaker Profile @ Sessionize.com
-|  https://sessionize.com/sanix-darker/
-|  sessionize.com › sanix-darker
-
-|> User Sanix darker - Stack Overflow
-|  https://stackoverflow.com/users/6858775/sanix-darker
-|  stackoverflow.com › users › sanix-d...
-
-|> User Sanix Darker - Stack Overflow
-|  https://stackoverflow.com/users/8633733/sanix-darker
-|  stackoverflow.com › users › sanix-d...
-
-|> Php in Cameroon | Git Awards
-|  http://git-awards.com/users?country=cameroon&language=php&type=country
-|  git-awards.com › users
-
-|> Projects · Sanix-Darker/API_SMS · GitHub
-|  https://gh-dark.rauchg.now.sh/Sanix-Darker/API_SMS/projects
-|  gh-dark.rauchg.now.sh › projects
-
 ```
-
+<img src="./images/falla.png">
 ## Author
 
 - Sanix-darker
