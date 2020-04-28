@@ -1,6 +1,8 @@
 # FAllA
 
 A search-engine-cli-scraper for more than 15 search engines, including Google. duckduckgo, Bing, Ask, etc...
+<br>
+**NOTE:** For educationnal purpose, am not responsible of the bad use of this tool !
 
 ## Requirements
 - Python (3.x)
