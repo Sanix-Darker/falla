@@ -1,11 +1,10 @@
-# Falla
+# FAllA
 
 A search-engine-cli-scraper for more than 15 search engines, including Google. duckduckgo, Bing, Ask, etc...
 
 ## Requirements
 - Python (3.x)
-- Pip3
-- Docker (Not required for all search-engine)
+- Docker-CE (Not required for all search-engine, just few of them)
 
 ## How to install
 
@@ -16,14 +15,19 @@ pip3 install -r requirements.txt
 - Install geckodriver :
 ```shell-script
 # For linux users
+
 # cd /home/your-user-name
 wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
+# Unzip the file
 tar -xvzf geckodriver*
 chmod +x geckodriver
+# Add it to PATH
 export PATH=$PATH:/path-to-extracted-file/.
+
+# For other OS's users, please check releases on https://github.com/mozilla/geckodriver/releases
 ```
 
-- Pull and run the splash-scrap module (Some of search engine need this):
+- Pull and run the splash-scrap module from docker-hub (Some of search engine need this):
 ```shell-script
 docker run -p 8050:8050 scrapinghub/splash
 ```
