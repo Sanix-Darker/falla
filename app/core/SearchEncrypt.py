@@ -39,5 +39,5 @@ class SearchEncrypt(Falla):
         url = "https://www.searchencrypt.com/search/?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-se = SearchEncrypt()
-print(se.search("un avion"))
+# se = SearchEncrypt()
+# print(se.search("un avion"))

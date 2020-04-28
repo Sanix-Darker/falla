@@ -46,5 +46,5 @@ class Yandex(Falla):
         url = "https://yandex.com/search/?text="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-y = Yandex()
-print(y.search("un avion"))
+# y = Yandex()
+# print(y.search("un avion"))

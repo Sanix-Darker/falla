@@ -42,5 +42,5 @@ class StartPage(Falla):
         url = "https://www.startpage.com/sp/search?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-sp = StartPage()
-print(sp.search("un avion"))
+# sp = StartPage()
+# print(sp.search("un avion"))

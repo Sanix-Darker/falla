@@ -36,5 +36,5 @@ class DogPile(Falla):
         url = "https://www.dogpile.com/serp?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-dp = DogPile()
-print(dp.search("un avion"))
+# dp = DogPile()
+# print(dp.search("un avion"))

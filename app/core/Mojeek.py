@@ -35,5 +35,5 @@ class Mojeek(Falla):
         url = "https://www.mojeek.com/search?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-mk = Mojeek()
-print(mk.search("un avion"))
+# mk = Mojeek()
+# print(mk.search("un avion"))

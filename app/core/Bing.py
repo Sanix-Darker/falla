@@ -43,5 +43,5 @@ class Bing(Falla):
         url = "https://www.bing.com/search?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-b = Bing()
-print(b.search("un avion"))
+# b = Bing()
+# print(b.search("un avion"))

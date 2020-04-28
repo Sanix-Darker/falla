@@ -38,5 +38,5 @@ class Aol(Falla):
         url = "https://search.aol.com/aol/search?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-a = Aol()
-print(a.search("un avion"))
+# a = Aol()
+# print(a.search("un avion"))

@@ -121,6 +121,7 @@ class Falla:
         return html_content
 
     def fetch(self, url):
+        print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") + "' on '" + self.source + "' :\n")
 
         html_content = self.get_html_content(url)
         

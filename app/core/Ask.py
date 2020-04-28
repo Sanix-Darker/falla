@@ -36,5 +36,5 @@ class Ask(Falla):
         url = "https://www.ask.com/web?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-ak = Ask()
-print(ak.search("un avion"))
+# ak = Ask()
+# print(ak.search("un avion"))

@@ -49,5 +49,5 @@ class Google(Falla):
         url = "https://www.google.com/search?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-g = Google()
-print(g.search("un avion"))
+# g = Google()
+# print(g.search("un avion"))

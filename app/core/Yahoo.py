@@ -45,5 +45,5 @@ class Yahoo(Falla):
         url = "https://search.yahoo.com/search?p="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-y = Yahoo()
-print(y.search("un avion"))
+# y = Yahoo()
+# print(y.search("un avion"))

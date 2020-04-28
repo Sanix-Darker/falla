@@ -40,5 +40,5 @@ class Gibiru(Falla):
         url = "https://gibiru.com/results.html?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-gi = Gibiru()
-print(gi.search("un avion"))
+# gi = Gibiru()
+# print(gi.search("un avion"))

@@ -47,5 +47,5 @@ class Qwant(Falla):
         url = "https://www.qwant.com/?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-qw = Qwant()
-print(qw.search("un avion"))
+# qw = Qwant()
+# print(qw.search("un avion"))

@@ -45,5 +45,5 @@ class DuckDuckGo(Falla):
         url = "https://duckduckgo.com/?q="+search_text.replace(" ", "+")
         return self.fetch(url)
 
-d = DuckDuckGo()
-print(d.search("un avion"))
+# d = DuckDuckGo()
+# print(d.search("un avion"))
