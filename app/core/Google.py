@@ -2,6 +2,8 @@
 # -*- encoding: utf-8 -*-
 # Sanix-darker
 
+import json
+import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
@@ -44,9 +46,24 @@ class Google(Falla):
             }
         }
 
-    def search(self, search_text):
-        url = "https://www.google.com/search?q=" + search_text.replace(" ", "+")
-        return self.fetch(url)
+    def search(self, search_text, pages=""):
+
+        base_url = "https://www.google.com/search?q=" + search_text.replace(" ", "+") + pages
+        print("[+] Searching results for '" + base_url.split("=")[1].replace("+", " ") +
+              "' on '" + self.source + "' :\n")
+
+        # results = json.loads(self.fetch(base_url))
+        #
+        # if pages > 1:
+        #     for nb_page in range(pages):
+        #         url = base_url + "&start=" + str(nb_page + 1) + "0"
+        #         time.sleep(1)
+        #         results = results + self.fetch(url)
+        #
+        # results = json.dumps(results)
+
+        return self.fetch(base_url)
+
 
 # g = Google()
 # print(g.search("un avion"))

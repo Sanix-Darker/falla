@@ -144,6 +144,8 @@ class Falla:
     def get_html_content(self, url):
         """
         This method will check the mode of fetching and proceed
+
+        url: The url of the target
         """
         html_content = ""
         if self.mode == "selenium":
@@ -171,9 +173,9 @@ class Falla:
     def fetch(self, url):
         """
         The main method for fetching results from url
-        """
-        print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") + "' on '" + self.source + "' :\n")
 
+        url: The url of the target
+        """
         html_content = self.get_html_content(url)
         soup = BeautifulSoup(html_content, 'html.parser')
         fetchs = self.get_each_elements(soup)

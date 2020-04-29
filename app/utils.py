@@ -25,7 +25,7 @@ def list_engines():
         print("[+] > " + Bcolors().AUTRE + e + Bcolors().ENDC)
 
 
-def get_results(engine, query):
+def get_results(engine, query, pages):
     if engine == "aol" or engine == "al":
         f = Aol()
     elif engine == "ask" or engine == "ak":
@@ -53,7 +53,7 @@ def get_results(engine, query):
     else:
         f = Google()
 
-    results = json.loads(f.search(query))
+    results = json.loads(f.search(query, pages))
     bcolors = Bcolors()
 
     for elt in results:

@@ -41,8 +41,11 @@ class Yandex(Falla):
             }
         }
 
-    def search(self, search_text):
-        url = "https://yandex.com/search/?text=" + search_text.replace(" ", "+")
+    def search(self, search_text, pages=""):
+        url = "https://yandex.com/search/?text=" + search_text.replace(" ", "+") + pages
+        print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") +
+              "' on '" + self.source + "' :\n")
+
         return self.fetch(url)
 
 # y = Yandex()

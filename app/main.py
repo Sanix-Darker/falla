@@ -17,13 +17,16 @@ if __name__ == "__main__":
     # Initialize the arguments
     # python3 -m app.main # Search-Engine list
     # python3 -m app.main -e aol -q "sanix darker"
+    #
+    # python3 -m app.main -e google -q "sanix darker" -p "&start=10"
     prs = argparse.ArgumentParser()
     prs.add_argument('-e', '--engine', help='The search engine', type=str, default="google")
     prs.add_argument('-q', '--query', help='The query text', type=str)
+    prs.add_argument('-p', '--page', help='Number of pages to fetch', type=str, default="")
     prs = prs.parse_args()
 
     print("[+] Falla [the search-engine-scraper]")
-    if prs.engine != None and prs.query != None:
-        get_results(engine=prs.engine.lower(), query=prs.query.lower())
+    if prs.engine is not None and prs.query is not None:
+        get_results(engine=prs.engine.lower(), query=prs.query.lower(), pages=prs.page)
     else:
         list_engines()

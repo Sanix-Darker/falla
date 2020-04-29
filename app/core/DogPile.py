@@ -31,8 +31,11 @@ class DogPile(Falla):
             "type": "text"
         }
 
-    def search(self, search_text):
-        url = "https://www.dogpile.com/serp?q=" + search_text.replace(" ", "+")
+    def search(self, search_text, pages=""):
+        url = "https://www.dogpile.com/serp?q=" + search_text.replace(" ", "+") + pages
+        print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") +
+              "' on '" + self.source + "' :\n")
+
         return self.fetch(url)
 
 # dp = DogPile()

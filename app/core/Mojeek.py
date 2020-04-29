@@ -30,8 +30,11 @@ class Mojeek(Falla):
             "type": "text"
         }
 
-    def search(self, search_text):
-        url = "https://www.mojeek.com/search?q=" + search_text.replace(" ", "+")
+    def search(self, search_text, pages=""):
+        url = "https://www.mojeek.com/search?q=" + search_text.replace(" ", "+") + pages
+        print("[+] Searching results for '" + url.split("=")[1].replace("+", " ") +
+              "' on '" + self.source + "' :\n")
+
         return self.fetch(url)
 
 # mk = Mojeek()
