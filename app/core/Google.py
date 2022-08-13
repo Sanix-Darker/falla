@@ -52,16 +52,6 @@ class Google(Falla):
         print("[+] Searching results for '" + base_url.split("=")[1].replace("+", " ") +
               "' on '" + self.source + "' :\n")
 
-        # results = json.loads(self.fetch(base_url))
-        #
-        # if pages > 1:
-        #     for nb_page in range(pages):
-        #         url = base_url + "&start=" + str(nb_page + 1) + "0"
-        #         time.sleep(1)
-        #         results = results + self.fetch(url)
-        #
-        # results = json.dumps(results)
-
         return self.fetch(base_url)
 
 
