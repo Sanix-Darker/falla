@@ -11,3 +11,19 @@ from app.core.SearchEncrypt import SearchEncrypt
 from app.core.StartPage import StartPage
 from app.core.Yahoo import Yahoo
 from app.core.Yandex import Yandex
+
+ENGINES = {
+    'aol': Aol,
+    'ask': Ask,
+    'bing': Bing,
+    'dogpile': DogPile,
+    'duckduckgo': DuckDuckGo,
+    'gibiru': Gibiru,
+    'mojeek': Mojeek,
+    'qwant': Qwant,
+    'searchencrypt': SearchEncrypt,
+    'startpage': StartPage,
+    'yahoo': Yahoo,
+    'yandex': Yandex,
+    'google': Google,
+}
